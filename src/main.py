@@ -5,11 +5,11 @@ from prometheus_client import start_http_server, Summary
 
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument('consul_service', type=str, help='consul <host:port>')
+parser.add_argument('consul', type=str, help='consul <host:port>')
 args = parser.parse_args()
 
-consul_host = args.consul_service.split(':')[0]
-consul_port = int(args.consul_service.split(':')[1])
+consul_host = args.consul.split(':')[0]
+consul_port = int(args.consul.split(':')[1])
 EPOCH_TIME = Summary('epoch_time', 'Time spent to change epoch')
 
 consul_client = consul.Consul(consul_host, consul_port)

@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: docker.io/vpuhoff/lifecycle_controller
-  pullPolicy: IfNotPresent
+  pullPolicy: Always #IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "master"
 
@@ -16,7 +16,7 @@ imagePullSecrets:
 nameOverride: ""
 fullnameOverride: ""
 
-arguments: ['--consul_service', "10.1.0.36:8500"]
+arguments: ["10.1.0.36:8500"]
 
 serviceAccount:
   # Specifies whether a service account should be created
