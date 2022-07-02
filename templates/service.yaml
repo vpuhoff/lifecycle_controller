@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "lifecycle_controller.fullname" . }}
+  name: {{ include "lifecycle-controller.fullname" . }}
   labels:
-    {{- include "lifecycle_controller.labels" . | nindent 4 }}
+    {{- include "lifecycle-controller.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -11,6 +11,6 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-  args: ['--consul_service', '{{ .Values.consul_service }}']
+  
   selector:
-    {{- include "lifecycle_controller.selectorLabels" . | nindent 4 }}
+    {{- include "lifecycle-controller.selectorLabels" . | nindent 4 }}

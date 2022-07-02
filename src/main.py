@@ -5,7 +5,7 @@ from prometheus_client import start_http_server, Summary
 
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument('--consul_service', help='consul <host:port>')
+parser.add_argument('consul_service', type=str, help='consul <host:port>')
 args = parser.parse_args()
 
 consul_host = args.consul_service.split(':')[0]

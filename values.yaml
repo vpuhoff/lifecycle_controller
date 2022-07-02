@@ -1,4 +1,4 @@
-# Default values for lifecycle_controller.
+# Default values for lifecycle-controller.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -8,12 +8,15 @@ image:
   repository: docker.io/vpuhoff/lifecycle_controller
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "master"
 
-imagePullSecrets: []
+
+imagePullSecrets: 
+  - name: docker-hub-token
 nameOverride: ""
 fullnameOverride: ""
-consul_service: "10.1.0.36:8500"
+
+arguments: ['--consul_service', "10.1.0.36:8500"]
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -48,7 +51,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: lifecycle_controller.local
+    - host: lifecycle-controller.local
       paths:
         - path: /
           pathType: ImplementationSpecific
@@ -81,3 +84,4 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+

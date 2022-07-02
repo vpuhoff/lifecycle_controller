@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "lifecycle_controller.fullname" . }}
+  name: {{ include "lifecycle-controller.fullname" . }}
   labels:
-    {{- include "lifecycle_controller.labels" . | nindent 4 }}
+    {{- include "lifecycle-controller.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "lifecycle_controller.selectorLabels" . | nindent 6 }}
+      {{- include "lifecycle-controller.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "lifecycle_controller.selectorLabels" . | nindent 8 }}
+        {{- include "lifecycle-controller.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "lifecycle_controller.serviceAccountName" . }}
+      serviceAccountName: {{ include "lifecycle-controller.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -37,6 +37,10 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
+          args:          
+          {{  range .Values.arguments }}
+            - {{ . }}
+          {{ end }}
           livenessProbe:
             httpGet:
               path: /

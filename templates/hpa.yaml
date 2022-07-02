@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "lifecycle_controller.fullname" . }}
+  name: {{ include "lifecycle-controller.fullname" . }}
   labels:
-    {{- include "lifecycle_controller.labels" . | nindent 4 }}
+    {{- include "lifecycle-controller.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "lifecycle_controller.fullname" . }}
+    name: {{ include "lifecycle-controller.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
