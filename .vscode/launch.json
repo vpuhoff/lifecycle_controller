@@ -8,9 +8,10 @@
             "name": "Python: текущий файл",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
+            "program": "main.py",
             "console": "integratedTerminal",
-            "args": ["--consul", "localhost:65448"],
+            "args": ["localhost:65448"],
+            "cwd": "${workspaceFolder}/src/",
             "justMyCode": true
         }
     ]

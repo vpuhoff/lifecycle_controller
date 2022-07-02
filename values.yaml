@@ -16,7 +16,7 @@ imagePullSecrets:
 nameOverride: ""
 fullnameOverride: ""
 
-arguments: ["10.1.0.36:8500"]
+arguments: ["main.py","10.1.0.36:8500"]
 
 serviceAccount:
   # Specifies whether a service account should be created
