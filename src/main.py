@@ -13,7 +13,7 @@ consul_port = int(args.consul.split(':')[1])
 EPOCH_TIME = Summary('epoch_time', 'Time spent to change epoch')
 
 consul_client = consul.Consul(consul_host, consul_port)
-
+print(f'Consul connected to: {args.consul}')
 
 def load_current_epoch(consul_client):
     epoch_index, resp = consul_client.kv.get('epoch')
@@ -37,3 +37,4 @@ with tqdm(initial=epoch) as progress_bar:
     while True:
         update_epoch(consul_client, epoch)
         progress_bar.update(1)
+        progress_bar.desc = str(epoch)
