@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "lifecycle_controller.fullname" . }}-test-connection"
+  labels:
+    {{- include "lifecycle_controller.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "lifecycle_controller.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
