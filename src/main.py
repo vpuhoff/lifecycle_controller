@@ -24,7 +24,7 @@ def load_current_epoch(consul_client):
 
 @EPOCH_TIME.time()
 def update_epoch(c, epoch):
-    sleep(0.01)
+    sleep(1)
     epoch = load_current_epoch(c)
     epoch += 1
     c.kv.put('epoch', str(epoch))
