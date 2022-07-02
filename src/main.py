@@ -22,11 +22,13 @@ def load_current_epoch(consul_client):
     epoch = int(resp['Value'])
     return epoch
 
-
 @EPOCH_TIME.time()
 def update_epoch(c, epoch):
-    sleep(0.05)
+    sleep(0.01)
+    epoch = load_current_epoch(c)
+    epoch += 1
     c.kv.put('epoch', str(epoch))
+    return epoch
 
 
 epoch = load_current_epoch(consul_client)
@@ -34,7 +36,7 @@ start_http_server(80)
 
 with tqdm(initial=epoch) as progress_bar:
     while True:
-        update_epoch(consul_client, epoch)
+        epoch = update_epoch(consul_client, epoch)
         progress_bar.update(1)
         progress_bar.desc = str(epoch)
-        epoch += 1
+
