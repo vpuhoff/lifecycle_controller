@@ -26,7 +26,6 @@ def load_current_epoch(consul_client):
 @EPOCH_TIME.time()
 def update_epoch(c, epoch):
     sleep(0.05)
-    epoch += 1
     c.kv.put('epoch', str(epoch))
 
 
@@ -38,3 +37,4 @@ with tqdm(initial=epoch) as progress_bar:
         update_epoch(consul_client, epoch)
         progress_bar.update(1)
         progress_bar.desc = str(epoch)
+        epoch += 1
